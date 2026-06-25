@@ -1,133 +1,137 @@
-# Economic agents' impact on Real states prices-DSA210 Project proposal                                                                                                    
+# 🏠 U.S. Housing Price Analysis
 
-## Project Question: How Do Economic Agents Change Influence Real Estate Prices and Home-Buying Trends in the USA?
+**Exploring how inflation, interest rates, GDP, unemployment, and the stock market drive U.S. housing prices (2000–2025)**
 
-## Project Description
-This project aims to analyze and explore the economic agents' impacts (Inflation and interest rates,..) on real estate prices and how that contributes to people's behavior toward buying houses.
-I will explore the relationship between these economic factors and real estate prices if it exist or not. The project will leverage historical data on inflation rates (CPI), Federal Funds rates, and housing prices (from sources such as Zillow and FRED) to identify patterns and correlations.
-I will use Exploratory analysis on these data sets and modify them. Then, I will continue by creating visualizations in order to illustrate these data sets and their correlation. I will use some statistical and machine learning to delve further into these data sets.
-In the end, I will reach a conclusion regarding this relationship's mechanism between them if it exists. The goal is to provide actionable insights into how these economic variables impact home-buying decisions, especially in fluctuating economic conditions.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange.svg)](https://jupyter.org/)
 
-Economic Agents:
-1) Inflation rates (CPI)
-2) Interest rates
-3) Mortgage Debt Service Payments (MDSP)
-4) Stock Market
-5) Unemployment
-6) GDP
+A DSA 210 data science project by **Bardiya Shavandi**, investigating whether macroeconomic forces — inflation, interest rates, mortgage debt, GDP, unemployment, and the stock market — can explain and predict movements in the U.S. House Price Index (USSTHPI) between 2000 and 2025.
 
-   
-## Research Questions:
-1. How do inflation rates (CPI) influence real estate prices in the USA?
-2. What is the impact of interest rate changes on the housing market in the USA?
-3. Does stock market have a significant correlation with housing market performance?
-4. How would the Mortgage Debt Service Payments (MDSP) influence housing market prices?
-      
-## Motivation: 
-1) Real Estate prices have a significant role in our lives and their relationship to economic factors would enhance our understanding of the reason behind these fluctuations in Housing prices.
-2) This project would aid the governments to observe whether instrumentalizing the interest rates would have any impacts on inflation and Real Estate prices or not, if so, Then this modification is helpful or not.
-3) Understanding this relationship can inform policies and help people make better home-buying decisions
+📄 **[Read the full project report →](Report.md)**
 
-## Hypothesis testing:
+---
 
- 1) Hypothesis for Inflation (CPIAUCSL) and Housing Prices (USSTHPI):
+## 📌 Overview
 
-Null Hypothesis (H0): There is no significant relationship between inflation (CPIAUCSL) and housing prices (USSTHPI).
+Housing prices touch nearly everyone — homeowners, renters, investors, and policymakers alike. This project asks a simple question with a complex answer: **which economic forces actually move the U.S. housing market, and by how much?**
 
-Alternative Hypothesis (H1): There is a significant relationship between inflation (CPIAUCSL) and housing prices (USSTHPI).
+Using two decades of public economic data, the project combines exploratory data analysis, statistical hypothesis testing, and machine learning to quantify the relationship between six economic indicators and the national House Price Index.
 
- 2) Hypothesis for Interest Rates (FEDFUNDS) and Housing Prices (USSTHPI):
+### Research Questions
 
-Null Hypothesis (H0): There is no significant relationship between interest rates (FEDFUNDS) and housing prices (USSTHPI).
+1. How do inflation rates (CPI) influence real estate prices in the U.S.?
+2. What is the impact of interest rate changes on the housing market?
+3. Does the stock market have a significant correlation with housing market performance?
+4. How do Mortgage Debt Service Payments (MDSP) influence housing prices?
+5. How do GDP and unemployment relate to housing price trends?
 
-Alternative Hypothesis (H1): There is a significant relationship between interest rates (FEDFUNDS) and housing prices (USSTHPI).
+Each question was tested as a formal null/alternative hypothesis pair using Pearson correlation, then explored further with predictive modeling.
 
- 3) Hypothesis for Stock Market (Close) and Housing Prices (USSTHPI):
+---
 
-Null Hypothesis (H0): There is no significant relationship between stock market performance (Close) and housing prices (USSTHPI).
+## 📊 Data Sources
 
-Alternative Hypothesis (H1): There is a significant relationship between stock market performance (Close) and housing prices (USSTHPI).
+| Indicator | Series | Source |
+|---|---|---|
+| House Price Index (target) | `USSTHPI` | [FRED](https://fred.stlouisfed.org/series/USSTHPI) |
+| Inflation (CPI) | `CPIAUCSL` | [FRED](https://fred.stlouisfed.org/series/CPIAUCSL) |
+| Interest Rates | `FEDFUNDS` | [FRED](https://fred.stlouisfed.org/series/FEDFUNDS) |
+| Mortgage Debt Service Payments | `MDSP` | [FRED](https://fred.stlouisfed.org/series/MDSP) |
+| GDP | `GDP` | [FRED](https://fred.stlouisfed.org/series/GDP) |
+| Unemployment Rate | `UNRATE` | [FRED](https://fred.stlouisfed.org/series/UNRATE) |
+| Stock Market Closing Prices | `Close` | [Kaggle](https://www.kaggle.com/datasets/ahmadrafiee/stock-market) |
 
- 4) Hypothesis for Mortgage Debt Service Payments (MDSP) and Housing Prices (USSTHPI):
+All series are filtered to a consistent **2000–2025** observation window and merged on date. Raw CSVs are available in [`Data_raw/`](Data_raw).
 
-Null Hypothesis (H0): There is no significant relationship between mortgage debt service payments (MDSP) and housing prices (USSTHPI).
+---
 
-Alternative Hypothesis (H1): There is a significant relationship between mortgage debt service payments (MDSP) and housing prices (USSTHPI).
+## 🧪 Methodology
 
- 5) Hypothesis for GDP and Housing Prices (USSTHPI):
+1. **Data collection & cleaning** — handled missing values (forward/backward fill), standardized date formats, and aligned all series to a shared time index.
+2. **Outlier detection** — used box plots, Z-scores, and IQR to flag and review extreme values.
+3. **Feature engineering** — built lagged variables and rolling averages (e.g., 3-month CPI/Fed Funds averages) to capture momentum and seasonality.
+4. **Exploratory analysis** — histograms, scatter plots, time series plots, and a Pearson correlation heatmap.
+5. **Hypothesis testing** — Pearson correlation with p-value < 0.05 as the significance threshold for each economic factor.
+6. **Predictive modeling** — Linear Regression, Random Forest Regressor, and K-Nearest Neighbors to predict `USSTHPI`.
+7. **Unsupervised learning** — K-Means clustering (k=3, selected via the Elbow Method) with PCA for visualization, to uncover hidden economic regimes.
 
-Null Hypothesis (H0): There is no significant relationship between GDP and housing prices (USSTHPI).
+---
 
-Alternative Hypothesis (H1): There is a significant relationship between GDP and housing prices (USSTHPI).
+## 🔍 Key Findings
 
- 6) Hypothesis for Unemployment and Housing Prices (USSTHPI):
+| Indicator | Correlation with Housing Prices | Strength |
+|---|---|---|
+| GDP | ≈ +0.89 | Very strong, positive |
+| Inflation (CPI) | ≈ +0.84–0.86 | Very strong, positive |
+| Stock Market | ≈ +0.37 | Moderate, positive |
+| Unemployment | ≈ −0.29 | Moderate, negative |
+| Interest Rates (FEDFUNDS) | ≈ −0.10 | Weak, negative |
+| Mortgage Debt (MDSP) | ≈ +0.006 (not significant) | None |
 
-Null Hypothesis (H0): There is no significant relationship between unemployment and housing prices (USSTHPI).
+**Model performance** (predicting `USSTHPI`):
 
-Alternative Hypothesis (H1): There is a significant relationship between unemployment and housing prices (USSTHPI).
+- **Random Forest Regressor**: R² ≈ 0.999 — best overall fit; CPI's 3-month rolling average emerged as the single most important predictor.
+- **Linear Regression (with lag features)**: R² ≈ 0.999
+- **Linear Regression (without lag features)**: R² ≈ 0.956 — confirms raw economic indicators alone carry strong predictive signal.
+- **K-Means Clustering**: identified 3 distinct economic regimes (e.g., volatile vs. stable periods) without using housing prices as an input.
 
-## Methodology:
-1) Data Collection: Various data will be collected and prepared to be processed
-2) Data Preprocessing: The data sets will be processed (Clean and getting rid of unuseful data)
-3) Exploratory Data Analysis (EDA): Utilizing different exploratory techniques
-4) Visualization: Plenty of visuals will be created regarding all data sets and their relevance
-5) Statistical Analysis: Statistical methods will be used to delve into the core of this project
-6) Predictive Modeling: Machine Learning techniques will further predict the prices in the future 
-7) Conclusion: Data visualization and final report
-8) Future work and its limitations (External factors which would contribute to housing market prices like political events)
+**Bottom line:** inflation and GDP are the dominant drivers of long-run housing price trends in this dataset, while interest rates and mortgage debt show comparatively weak standalone effects. Lag and rolling-average features meaningfully improve predictive accuracy, suggesting housing prices carry strong momentum.
 
-## Data Collection:
-For this project, I will use various data sets regarding this relationship.
-Economic factors like inflation and interest rates data sets will be collected from the FRED database which includes this data for a time-specified duration.
-The Housing prices & Mortgage Debt will be gathered from FRED and MDSP.
-Further data sets may be collected and utilized during data collection regarding economic agents to enhance this project in terms of its understanding of the mechanism.
+For the full breakdown — including every visualization, hypothesis test, and model evaluation — see **[Report.md](Report.md)**.
 
-These datasets will be utilized to be analyzed further:
-1) Inflation data (CPI) and interest rate data (FED FUNDS) will be gathered and collected from the FRED database. These datasets are available publicly and have been provided by FEDERAL RESERVE BOARD OF UNITED STATES. This file is gonna be exported in .csv extension in order to be analyzed further.
-2) Housing Market Prices will be sourced from Zillow, which provides reliable and comprehensive data on real estate trends in the United States. This file is gonna be exported in .csv extension in order to be analyzed further.
-3) Mortgage Debt Service Payments (MDSP) and House Price Index (HPI) data will also be sourced from FRED, which provides detailed datasets on economic indicators. This file is gonna be exported in a .csv extension in order to be analyzed further.
-4) The USA stock market will be extracted from Kaggle. This file is gonna be exported in a .csv extension in order to be analyzed further.
-5) GDP
-6) Unemployment
-   
-Data Sources:
-1. Inflation Data (CPI)
-   https://fred.stlouisfed.org/series/CPIAUCSL
+---
 
+## 🛠️ Tech Stack
 
-   Explanation: Consumer Price Index (CPI) to track inflation in the U.S.
+- **Language:** Python 3
+- **Data handling:** `pandas`, `numpy`
+- **Visualization:** `matplotlib`, `seaborn`
+- **Statistics:** `scipy.stats`
+- **Machine learning:** `scikit-learn` (`LinearRegression`, `RandomForestRegressor`, `KNeighborsRegressor`, `KMeans`, `PCA`, `StandardScaler`)
+- **Environment:** Jupyter Notebook (Google Colab)
 
-2. Interest Rate Data (Federal Funds Rate)
-   https://fred.stlouisfed.org/series/FEDFUNDS
+---
 
-   
-   Explanation: Federal Funds Rate data, which impacts borrowing costs.
+## 📁 Repository Structure
 
-3. Mortgage Debt Service Payments (MDSP) 
-   https://fred.stlouisfed.org/series/MDSP
+```
+US-Housing-Price-Analysis/
+├── Data_raw/                   # Raw CSV datasets (CPI, Fed Funds, GDP, MDSP, Stock Market, UNRATE, HPI)
+├── Project.ipynb               # Full analysis notebook: cleaning, EDA, hypothesis testing, ML models
+├── Report.md                   # Detailed write-up of methodology, findings, and conclusions
+├── README.md                   # Project overview (this file)
+└── LICENSE                     # MIT License
+```
 
-   
-   Explanation: The percentage of income spent on mortgage payments.
+---
 
-4. House Price Index (HPI)  
-   https://fred.stlouisfed.org/series/USSTHPI
+## 🚀 Getting Started
 
+```bash
+git clone https://github.com/Bardiyashavandi/US-Housing-Price-Analysis.git
+cd US-Housing-Price-Analysis
+pip install pandas numpy matplotlib seaborn scipy scikit-learn jupyter
+jupyter notebook Project.ipynb
+```
 
-   Explanation: A national measure of home price changes in the U.S.
+The notebook runs end-to-end: load raw CSVs from `Data_raw/`, clean and merge them, then reproduce every chart, hypothesis test, and model in the report.
 
-5. Stock Market
-   https://www.kaggle.com/datasets/ahmadrafiee/stock-market
+---
 
+## ⚠️ Limitations & Future Work
 
-   Explanation: Stock Market dataset in the USA in different periods
-   
-7. GDP
-    https://fred.stlouisfed.org/series/GDP
+- Results rely on the quality and completeness of historical public data.
+- National-level data may obscure regional housing market differences.
+- No advanced time-series models (e.g., ARIMA, LSTM) were used — a natural next step for improving forecasts.
+- Future iterations could incorporate state- or city-level data, additional variables (income, population growth, housing supply), or an interactive forecasting dashboard.
 
-8. Unemployment
-   https://fred.stlouisfed.org/series/UNRATE
+---
 
-   
-## Expected Outcome
-- The analysis will reveal how **inflation** and **interest rates** impact **real estate prices** and **home-buying behavior**.
-- The project will provide insights into how these economic conditions affect **home affordability** and predict potential future trends in the housing market.
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## 👤 Author
+
+**Bardiya Shavandi** — DSA 210, Sabancı University
